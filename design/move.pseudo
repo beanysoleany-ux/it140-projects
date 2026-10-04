@@ -1,25 +1,47 @@
-# Project One Move-Between-Rooms Pseudocode
-#
-# Graded checkpoint: Module Five Project One
-# Later use: conceptual support for M6; movement design for M7
-#
-# Review the course-provided movement flowchart before completing this file.
-# Write pseudocode, not Python code. Use clear indentation and course-appropriate
-# keywords such as INPUT, OUTPUT, IF, ELSE, WHILE, SET, or similar terms.
+START
 
-# TODO 1: Identify the information the movement process needs.
-# Consider the player's current room and movement command.
+    // TODO 1: Identify the information the movement process needs
+    // We need the player's current room and the layout of the game map
+    // We also need the directional command the player wants to take
+    
+    DECLARE current_room AS STRING
+    DECLARE command AS STRING
+    DECLARE next_room AS STRING
 
-# TODO 2: Prompt for and receive the player's movement command.
 
-# TODO 3: Validate whether the requested movement is possible from the
-# current room. Show the decision clearly.
+    // TODO 2: Prompt for and receive the player's movement command
+    OUTPUT "You are in the " + current_room
+    OUTPUT "Enter a direction to move (e.g., North, South, East, West): "
+    INPUT command
 
-# TODO 4: Describe what happens when the movement command is valid.
-# Include the room update and player output.
 
-# TODO 5: Describe what happens when the movement command is invalid.
-# Include the output the player should receive.
+    // TODO 3: Validate whether the requested movement is possible from the current room
+    // Check if the chosen direction connects to another room on the map
+    IF map[current_room][command] EXISTS THEN
+    
+        // TODO 4: Describe what happens when the movement command is valid
+        // Update the room and display the success to the player
+        next_room = map[current_room][command]
+        current_room = next_room
+        OUTPUT "You successfully moved to the " + current_room + "."
+        
+    ELSE
+    
+        // TODO 5: Describe what happens when the movement command is invalid
+        // Keep the player in the same room and output an error message
+        OUTPUT "You cannot go that way! There is no exit in that direction."
+        OUTPUT "You remain in the " + current_room + "."
+        
+    ENDIF
 
-# TODO 6: Show how movement fits into repeated gameplay.
-# The final game continues accepting commands until a required ending occurs.
+
+    // TODO 6: Show how movement fits into repeated gameplay
+    // This process typically runs inside a main game loop until an ending condition is met
+    // (e.g., reaching the exit room or encountering a game-over condition)
+    
+    IF current_room == "Exit Room" THEN
+        OUTPUT "Congratulations! You have escaped and won the game!"
+        SET game_running = FALSE
+    ENDIF
+
+END
